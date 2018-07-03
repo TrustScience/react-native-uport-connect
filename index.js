@@ -1,5 +1,5 @@
 import './globals'
-import { Linking } from 'react-native'
+import { Linking, Platform } from 'react-native'
 
 var uportConnect = require('uport-connect/dist/uport-connect')
 const { Connect, SimpleSigner } = uportConnect
@@ -22,7 +22,7 @@ const configureUportConnect = (config) => {
 
   uport.topicFactory = (name) => {
     const id = uuidv1()
-    const url = `${config.appAddress}:${id}`
+    const url = Platform.OS === 'ios' ? `TS${config.appAddress}:${id}` : `${config.appAddress}:${id}`
     let handler
     let cancel
     const topic = new Promise((resolve, reject) => {
